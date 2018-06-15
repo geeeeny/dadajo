@@ -30,7 +30,7 @@ public class SimpleMqttCallBack implements MqttCallback {
 	SensorIn sensorIn = new SensorIn(); 	// 현재 실내 상태를 저장할 객체
 	SensorOut sensorOut = new SensorOut();  // 현재 실외 상태를 저장할 객체
 	@Autowired
-	static Window window; //window = new Window();
+	static Window window = new Window();
 	
 	MqttClient client;
 	
@@ -49,7 +49,7 @@ public class SimpleMqttCallBack implements MqttCallback {
 		final String location = topic.substring(topic.indexOf("/") + 1, topic.lastIndexOf("/")); // 센서의 위치(in 또는 out)
 		final String sensorName = topic.substring(topic.lastIndexOf("/") + 1); // 센서명(temp/humid/dust/rain)
 		final String value = new String(mqttMessage.getPayload()); // 센서값
-		System.out.println("lsv:\t" + location + ")" + sensorName + ": " + value);
+		//System.out.println("lsv:\t" + location + ")" + sensorName + ": " + value);
 
 		String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
@@ -89,6 +89,7 @@ public class SimpleMqttCallBack implements MqttCallback {
 			break;
 		case "rain":
 			sensor.setRain(Float.parseFloat(value));
+			break;
 		default:
 			break;
 		}
